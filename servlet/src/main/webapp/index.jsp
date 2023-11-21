@@ -12,10 +12,25 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <card>
         <h1>Probar</h1>
-        <form action="test" method="post">
-            <input name="text">
-            <input type="submit" value="Enviar Prueba">
+        <form action="ConnectionDB" method="post">
+            <p>Name:</p>
+                <input name="name">
+                <p>Description:</p>
+                <input name="description">
+                <p>Price:</p>
+                <input type="number" name="price" min="0" max="100">
+                <p></p>
+                <p></p>
+                <p></p>
+                <input type="submit" value="Enviar Prueba">
+            </form>
+        <form action="ReceiveData" method="get">
+            <p>Buscar Producto por ID:</p>
+            <input type="number" name="searchID">
+            <input type="submit">
         </form>
+        </card>
     </body>
 </html>

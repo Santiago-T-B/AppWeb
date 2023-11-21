@@ -4,21 +4,24 @@
  */
 package controller;
 
+import database.CrudDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.annotation.WebServlet;
+import models.Products;
 
 /**
  *
  * @author gotle
  */
-@WebServlet(name = "test", urlPatterns = {"/test"})
-public class test extends HttpServlet {
+@WebServlet(name= "ReceiveData", urlPatterns = {"/ReceiveData"})
+public class ReceiveData extends HttpServlet {
 
+    CrudDB crudDB = new CrudDB();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,10 +39,10 @@ public class test extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet test</title>");            
+            out.println("<title>Servlet ReceiveData</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1> ¡Funcionando2!</h1>");
+            out.println("<h1>Servlet ReceiveData at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +60,28 @@ public class test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        Products product = crudDB.receiveProduct(Integer.parseInt(request.getParameter("searchID")));
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Informacion del Producto</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<p> ID: "+product.getId()+"</p>");
+            out.println("<p> NAME: "+product.getName()+"</p>");
+            out.println("<p> DESCRIPTION: "+product.getDescription()+"</p>");
+            out.println("<p> PRICE: "+product.getPrice()+"</p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+        
+        
+        
+        
     }
 
     /**
@@ -71,22 +95,7 @@ public class test extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String text = request.getParameter("text");
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet test</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>"+text+"</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            response.sendRedirect("index2.jsp");
-        }
-        
+        processRequest(request, response);
     }
 
     /**
