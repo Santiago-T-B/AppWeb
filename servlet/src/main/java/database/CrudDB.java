@@ -34,6 +34,27 @@ public class CrudDB {
             e.printStackTrace();
         }
     }
+    
+    public ArrayList<Products> receiveAllProducts(){
+        ArrayList<Products> products = new ArrayList<>();
+        try{
+            String query = "SELECT * FROM products";
+            ps = connection.getConexion().prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while(rs.next()){
+                Products product = new Products(
+                        Integer.parseInt(rs.getString("id")),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        Integer.parseInt(rs.getString("price"))
+                );
+                products.add(product);
+            }
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public Products receiveProduct(int id) {
         try {

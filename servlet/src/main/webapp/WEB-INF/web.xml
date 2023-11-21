@@ -9,8 +9,8 @@
         <servlet-class>controller.ReceiveData</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>test</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>ConnectionDB</servlet-name>
+        <url-pattern>/ConnectionDB</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReceiveData</servlet-name>

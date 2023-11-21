@@ -82,7 +82,7 @@ public class ConnectionDB extends HttpServlet {
             String description = request.getParameter("description");
             String price = request.getParameter("price");
             crudDB.createProduct(name, description, price);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("test.jsp");
         } catch (SQLException ex) {
             System.out.println("Error de Conexion");
         }
