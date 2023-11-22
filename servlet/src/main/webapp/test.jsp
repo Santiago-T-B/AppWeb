@@ -27,8 +27,7 @@
                 <input type="submit" value="Enviar Prueba">
             </form>
         <form action="ReceiveData" method="get">
-            <p>Buscar Producto por ID:</p>
-            <input type="number" name="searchID">
+            <p>Mostrar Productos</p>
             <input type="submit">
         </form>
         </card>

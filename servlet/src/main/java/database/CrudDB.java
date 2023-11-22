@@ -21,14 +21,15 @@ public class CrudDB {
     ConexionDB connection = new ConexionDB();
     ResultSet rs = null;
 
-    public void createProduct(String name, String description, String price) throws SQLException {
+    public void createProduct(String name, String description, int price, String url){
         try {
-            Statement statement = connection.getConexion().createStatement();
-            String query = "INSERT INTO products (name,description,price) values (?,?,?)";
+            Statement st = connection.getConexion().createStatement();
+            String query = "INSERT INTO products (name,description,price,url) values (?,?,?,?)";
             ps = connection.getConexion().prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, description);
-            ps.setString(3, price);
+            ps.setInt(3, price);
+            ps.setString(4, url);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,20 +41,21 @@ public class CrudDB {
         try{
             String query = "SELECT * FROM products";
             ps = connection.getConexion().prepareStatement(query);
-            rs = ps.executeQuery(query);
+            rs = ps.executeQuery();
             while(rs.next()){
                 Products product = new Products(
-                        Integer.parseInt(rs.getString("id")),
                         rs.getString("name"),
                         rs.getString("description"),
-                        Integer.parseInt(rs.getString("price"))
+                        Integer.parseInt(rs.getString("price")),
+                        rs.getString("url")
                 );
                 products.add(product);
             }
+            
         } catch (Exception e){
             System.out.println(e);
         }
-        return null;
+        return products;
     }
 
     public Products receiveProduct(int id) {
@@ -64,10 +66,10 @@ public class CrudDB {
             rs = ps.executeQuery();
             if (rs.next()) {
                 Products product = new Products(
-                        Integer.parseInt(rs.getString("id")),
                         rs.getString("name"),
                         rs.getString("description"),
-                        Integer.parseInt(rs.getString("price"))
+                        Integer.parseInt(rs.getString("price")),
+                        rs.getString("url")
                 );
                 return product;
             }

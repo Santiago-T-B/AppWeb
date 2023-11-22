@@ -8,6 +8,14 @@
         <servlet-name>ReceiveData</servlet-name>
         <servlet-class>controller.ReceiveData</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createProduct</servlet-name>
+        <servlet-class>controller.createProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProduct</servlet-name>
+        <servlet-class>controller.CreateProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnectionDB</servlet-name>
         <url-pattern>/ConnectionDB</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>ReceiveData</servlet-name>
         <url-pattern>/ReceiveData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createProduct</servlet-name>
+        <url-pattern>/createProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProduct</servlet-name>
+        <url-pattern>/CreateProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

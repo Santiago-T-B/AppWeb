@@ -77,15 +77,7 @@ public class ConnectionDB extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String name = request.getParameter("name");
-            String description = request.getParameter("description");
-            String price = request.getParameter("price");
-            crudDB.createProduct(name, description, price);
-            response.sendRedirect("test.jsp");
-        } catch (SQLException ex) {
-            System.out.println("Error de Conexion");
-        }
+       
         
     }
 

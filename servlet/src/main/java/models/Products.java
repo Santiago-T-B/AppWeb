@@ -10,19 +10,19 @@ package models;
  */
 public class Products {
     
-    private int id;
     private String name;
     private String description;
     private int price;
+    private String url;
 
     public Products() {
     }
 
-    public Products(int id, String name, String description, int price) {
-        this.id = id;
+    public Products(String name, String description, int price, String url) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.url = url;
     }
 
     public int getPrice() {
@@ -31,14 +31,6 @@ public class Products {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -57,14 +49,22 @@ public class Products {
         this.description = description;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("product{");
-        sb.append("id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", price=").append(price);
+        sb.append(", url=").append(url);
         sb.append('}');
         return sb.toString();
     }

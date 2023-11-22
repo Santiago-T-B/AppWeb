@@ -5,7 +5,9 @@
 package controller;
 
 import database.CrudDB;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,15 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 import models.Products;
 
 /**
  *
  * @author gotle
  */
-@WebServlet(name = "ReceiveData", urlPatterns = {"/ReceiveData"})
-public class ReceiveData extends HttpServlet {
+@WebServlet(name = "CreateProduct", urlPatterns = {"/CreateProduct"})
+public class CreateProduct extends HttpServlet {
 
     CrudDB crudDB = new CrudDB();
 
@@ -50,11 +51,19 @@ public class ReceiveData extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String name = request.getParameter("nameModal");
+        String description = request.getParameter("descriptionModal");
+        int price = Integer.parseInt(request.getParameter("priceModal"));
+        String url = request.getParameter("urlModal");
+
+        crudDB.createProduct(name, description, price, url);
         ArrayList<Products> listProducts = crudDB.receiveAllProducts();
         HttpSession session = request.getSession();
         session.setAttribute("listProducts", listProducts);
         response.sendRedirect("products.jsp");
         
+
     }
 
     /**
