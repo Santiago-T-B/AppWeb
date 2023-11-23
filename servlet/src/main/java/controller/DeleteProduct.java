@@ -5,26 +5,28 @@
 package controller;
 
 import database.CrudDB;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Products;
 
 /**
  *
  * @author gotle
  */
-@WebServlet(name = "CreateProduct", urlPatterns = {"/CreateProduct"})
-public class CreateProduct extends HttpServlet {
+@WebServlet(name = "DeleteProduct", urlPatterns = {"/DeleteProduct"})
+public class DeleteProduct extends HttpServlet {
 
-    CrudDB crudDB = new CrudDB();
+    private CrudDB crudDB = new CrudDB();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,19 +53,12 @@ public class CreateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String name = request.getParameter("nameCreateModal");
-        String description = request.getParameter("descriptionCreateModal");
-        int price = Integer.parseInt(request.getParameter("priceCreateModal"));
-        String url = request.getParameter("urlCreateModal");
-
-        crudDB.createProduct(name, description, price, url);
+        int id = Integer.parseInt(request.getParameter("idDeleteModal"));
+        crudDB.removeProduct(id);
         ArrayList<Products> listProducts = crudDB.receiveAllProducts();
         HttpSession session = request.getSession();
         session.setAttribute("listProducts", listProducts);
         response.sendRedirect("products.jsp");
-        
-
     }
 
     /**
@@ -77,7 +72,7 @@ public class CreateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**

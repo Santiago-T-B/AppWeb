@@ -23,7 +23,6 @@ public class CrudDB {
 
     public void createProduct(String name, String description, int price, String url){
         try {
-            Statement st = connection.getConexion().createStatement();
             String query = "INSERT INTO products (name,description,price,url) values (?,?,?,?)";
             ps = connection.getConexion().prepareStatement(query);
             ps.setString(1, name);
@@ -44,9 +43,10 @@ public class CrudDB {
             rs = ps.executeQuery();
             while(rs.next()){
                 Products product = new Products(
+                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        Integer.parseInt(rs.getString("price")),
+                        rs.getInt("price"),
                         rs.getString("url")
                 );
                 products.add(product);
@@ -59,23 +59,48 @@ public class CrudDB {
     }
 
     public Products receiveProduct(int id) {
+        Products product = new Products();
         try {
             String query = "SELECT * FROM products WHERE id = ?";
             ps = connection.getConexion().prepareStatement(query);
-            ps.setString(1, String.valueOf(id));
+            ps.setInt(1, id);
             rs = ps.executeQuery();
-            if (rs.next()) {
-                Products product = new Products(
-                        rs.getString("name"),
-                        rs.getString("description"),
-                        Integer.parseInt(rs.getString("price")),
-                        rs.getString("url")
-                );
-                return product;
+            while (rs.next()) {      
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getInt("price"));
+                product.setUrl(rs.getString("url"));                             
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+        return product;
+    }
+    
+    public void editProduct(int id, String name, String description, int price, String url){
+        try {
+            String query = "UPDATE products SET name = ?, description = ?, price = ?, url = ? WHERE id = ?";
+            ps = connection.getConexion().prepareStatement(query);
+            ps.setString(1,name);
+            ps.setString(2,description);
+            ps.setInt(3, price);
+            ps.setString(4, url);
+            ps.setInt(5, id);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void removeProduct(int id){
+        try {
+            String query = "DELETE FROM products WHERE id = ?";
+            ps = connection.getConexion().prepareStatement(query);
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

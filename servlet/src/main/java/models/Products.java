@@ -10,6 +10,7 @@ package models;
  */
 public class Products {
     
+    private int id;
     private String name;
     private String description;
     private int price;
@@ -18,11 +19,20 @@ public class Products {
     public Products() {
     }
 
-    public Products(String name, String description, int price, String url) {
+    public Products(int id, String name, String description, int price, String url) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPrice() {
@@ -61,6 +71,7 @@ public class Products {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("product{");
+        sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", price=").append(price);

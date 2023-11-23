@@ -14,8 +14,6 @@
     </head>
     <body>
         <!-- Navigation-->
-
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#!">Start Bootstrap</a>
@@ -29,22 +27,30 @@
                                 Shop
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
                                 <!-- Formulario 1 -->
                                 <form action="ReceiveData" method="get" class="dropdown-item">
                                     <input type="submit" class="custom-input-style" value="All Products">
                                 </form>
-
                                 <!-- Separador -->
                                 <div class="dropdown-divider"></div>
-
                                 <!-- Formulario 2 -->
                                 <form class="dropdown-item">
-                                    <button type="button" class="btn btn-primary bg-transparent border-0 text-black text-center" style="color: #000; width: 100%" data-bs-toggle="modal" data-bs-target="#modalProduct">
+                                    <button type="button" class="btn btn-primary bg-transparent border-0 text-black text-center" style="color: #000; width: 100%" data-bs-toggle="modal" data-bs-target="#modalCreateProduct">
                                         Create Products
                                     </button>
+                                </form>                               
+                                <!-- Formulario 3 -->
+                                <form class="dropdown-item">
+                                    <button type="button" class="btn btn-primary bg-transparent border-0 text-black text-center" style="color: #000; width: 100%" data-bs-toggle="modal" data-bs-target="#modalEditProduct">
+                                        Edit Product
+                                    </button>
+                                </form>                               
+                                <!-- Formulario 4 -->
+                                <form class="dropdown-item">
+                                    <button type="button" class="btn btn-primary bg-transparent border-0 text-black text-center" style="color: #000; width: 100%" data-bs-toggle="modal" data-bs-target="#modalDeleteProduct">
+                                        Remove Product
+                                    </button>
                                 </form>
-
                             </div>
                         </li>
                     </ul>
@@ -59,8 +65,8 @@
             </div>
         </nav>
 
-
-        <div class="modal" id="modalProduct">
+        <!-- Modal para crear el producto -->
+        <div class="modal" id="modalCreateProduct">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -71,23 +77,20 @@
                         <form action="CreateProduct" method="get">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Name</label>
-                                <input type="text" class="form-control" id="recipient-name" name="nameModal">
+                                <input type="text" class="form-control" id="recipient-name" name="nameCreateModal" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Description</label>
-                                <input type="text" class="form-control" id="recipient-name" name="descriptionModal">
+                                <input type="text" class="form-control" id="recipient-name" name="descriptionCreateModal" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Image Url</label>
-                                <input type="text" class="form-control" id="recipient-name" name="urlModal">
+                                <input type="text" class="form-control" id="recipient-name" name="urlCreateModal" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Price</label>
-                                <input type="number" class="form-control" id="recipient-name" min="0" max="10000" name="priceModal">
+                                <input type="number" class="form-control" id="recipient-name" min="0" max="10000" name="priceCreateModal" required>
                             </div>
-
-
-
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Create</button>                            
                             </div>
@@ -96,10 +99,78 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- Modal para editar el producto -->
+        <div class="modal fade" id="modalEditProduct">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalProductEditLabel">Edit a Product</h5>
+                        <button type="button" class="btn-close" style="background-color: #ff3333; opacity: 0.85" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulario para editar el producto -->
+                        <form action="EditProduct" method="get">
+                            <!-- Id del producto -->
+                            <div class="mb-3">
+                                <label for="editProductName" class="form-label">Product ID:</label>
+                                <input type="number" class="form-control" id="editProductID" name="idEditModal" required>
+                            </div>
+                            <!-- Nombre del producto -->
+                            <div class="mb-3">
+                                <label for="editProductName" class="form-label">New Name:</label>
+                                <input type="text" class="form-control" id="editProductName" name="nameEditModal" required>
+                            </div>
+                            <!-- Descripción del producto -->
+                            <div class="mb-3">
+                                <label for="editProductDescription" class="form-label">New Description:</label>
+                                <textarea class="form-control" id="editProductDescription" name="descriptionEditModal" required></textarea>
+                            </div>
+                            <!-- URL del producto -->
+                            <div class="mb-3">
+                                <label for="editProductURL" class="form-label">New Image URL:</label>
+                                <input type="text" class="form-control" id="editProductURL" name="urlEditModal" required>
+                            </div>
+                            <!-- Precio del producto -->
+                            <div class="mb-3">
+                                <label for="editProductPrice" class="form-label">New Price:</label>
+                                <input type="number" class="form-control" id="editProductPrice" name="priceEditModal" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>                           
+                            </div>                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal para eliminar el producto -->
+        <div class="modal fade" id="modalDeleteProduct">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalProductEditLabel">Remove a Product</h5>
+                        <button type="button" class="btn-close" style="background-color: #ff3333; opacity: 0.85" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulario para editar el producto -->
+                        <form action="DeleteProduct" method="get">
+                            <!-- Id del producto -->
+                            <div class="mb-3">
+                                <label for="editProductName" class="form-label">Product ID:</label>
+                                <input type="number" class="form-control" id="editProductID" name="idDeleteModal" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>                           
+                            </div>                          
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Header-->
-
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Shop in style</h1>

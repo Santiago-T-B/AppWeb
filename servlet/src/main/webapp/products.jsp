@@ -6,6 +6,7 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Products"%>
+<%@page import="database.CrudDB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,8 @@
         <header>
             <%@ include file="header.jsp" %>
         </header>
-        <!-- Section-->
+        <!-- Section of Products-->
+
         <section class="py-5">
 
             <div class="container px-4 px-lg-5 mt-5">
@@ -35,12 +37,15 @@
                     <%
                         ArrayList<Products> listProducts = (ArrayList) request.getSession().getAttribute("listProducts");
                        
-                            for(Products product: listProducts){
+                        for(Products product: listProducts){
+                            
                     %>
                     <div class="col mb-5">
+
                         <div class="card h-100">
+
                             <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            <div class="badge text-white position-absolute" style="top: 0.5rem; right: 0.5rem; background-color: #0d6efd">ID: <%=product.getId()%></div>
                             <!-- Product image-->
                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
                             <!-- Product details-->
@@ -51,29 +56,24 @@
                                     <!-- Product price-->
                                     <span>$<%=product.getPrice()%></span><br>                                       
                                     <!-- Product description-->
+                                    <div class="dropdown-divider"></div>
                                     <div style="text-align: left">
                                         <span><%=product.getDescription()%></span>                                    
                                     </div>
-
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-center">
                                     <div class="text-center">
-                                        <a class="btn btn-outline-dark mt-auto" href="#">
+                                        <a class="btn mt-auto" style="background-color: #009933; color: white;" href="#">
                                             Add to cart
-                                        </a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="btn btn-warning mt-auto" href="#">
-                                            Edit
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                     
                     <% }%>                           
                 </div>
             </div>
@@ -84,6 +84,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="js/scripts.js"></script>
     </body>
 </html>

@@ -12,17 +12,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Products;
 
 /**
  *
  * @author gotle
  */
-@WebServlet(name = "ConnectionDB", urlPatterns = {"/ConnectionDB"})
-public class ConnectionDB extends HttpServlet {
-    
+@WebServlet(name = "EditProduct", urlPatterns = {"/EditProduct"})
+public class EditProduct extends HttpServlet {
+
     private CrudDB crudDB = new CrudDB();
 
     /**
@@ -36,19 +39,6 @@ public class ConnectionDB extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet test</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1> ¡Funcionando2!</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,7 +53,17 @@ public class ConnectionDB extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("idEditModal"));
+        String name = request.getParameter("nameEditModal");
+        String description = request.getParameter("descriptionEditModal");
+        int price = Integer.parseInt(request.getParameter("priceEditModal"));
+        String url = request.getParameter("urlEditModal");
+
+        crudDB.editProduct(id, name, description, price, url);
+        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
+        HttpSession session = request.getSession();
+        session.setAttribute("listProducts", listProducts);
+        response.sendRedirect("products.jsp");
     }
 
     /**
@@ -77,8 +77,7 @@ public class ConnectionDB extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+
     }
 
     /**
