@@ -18,11 +18,15 @@
     </servlet>
     <servlet>
         <servlet-name>EditProduct</servlet-name>
-        <servlet-class>controller.EditProduct</servlet-class>
+        <servlet-class>controller.SendEditValues</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteProduct</servlet-name>
         <servlet-class>controller.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProducts</servlet-name>
+        <servlet-class>controller.EditProductA</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConnectionDB</servlet-name>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
         <url-pattern>/DeleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProducts</servlet-name>
+        <url-pattern>/EditProducts</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

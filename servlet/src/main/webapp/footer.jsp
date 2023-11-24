@@ -16,8 +16,8 @@
         <!-- Footer-->
 
         <div class="container">
-            <p class="m-0 text-center text-black">
-                Copyright &copy; Your Website 2023
+            <p class="m-0 text-center text-light">
+                Copyright &copy; Santiago Corp.
             </p>
         </div>
 

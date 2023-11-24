@@ -21,8 +21,19 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <header>
+        <header class="header">
             <%@ include file="header.jsp" %>
+            <!-- Header-->
+            <div>
+                <h1>
+                    STGames Shop
+                </h1>
+            </div>
+            <div class="typewriter-container" style="height: 300px; max-width: 100%; width: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="text-center text-white typewriter-container" style="max-width:100%; width: 100%">
+                    <div id="frase-container" class="frase-container"></div>
+                </div>
+            </div>
         </header>
         <main class="main">
             <div>
@@ -35,6 +46,7 @@
                     </div>
                 </section>
             </div>
+            <%@ include file="modals.jsp" %>
         </main>
         <footer class="footer">
             <%@ include file="footer.jsp" %>

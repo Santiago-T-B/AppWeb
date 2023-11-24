@@ -26,8 +26,6 @@ import models.Products;
 @WebServlet(name = "DeleteProduct", urlPatterns = {"/DeleteProduct"})
 public class DeleteProduct extends HttpServlet {
 
-    private CrudDB crudDB = new CrudDB();
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,12 +51,7 @@ public class DeleteProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("idDeleteModal"));
-        crudDB.removeProduct(id);
-        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
-        HttpSession session = request.getSession();
-        session.setAttribute("listProducts", listProducts);
-        response.sendRedirect("products.jsp");
+        
     }
 
     /**
@@ -72,7 +65,14 @@ public class DeleteProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        CrudDB crudDB = new CrudDB();
+        int id = Integer.parseInt(request.getParameter("idDelete"));
+        crudDB.removeProduct(id);
+        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
+        HttpSession session = request.getSession();
+        session.setAttribute("listProducts", listProducts);
+        response.sendRedirect("products.jsp");
     }
 
     /**

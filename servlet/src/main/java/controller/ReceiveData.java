@@ -50,10 +50,7 @@ public class ReceiveData extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
-        HttpSession session = request.getSession();
-        session.setAttribute("listProducts", listProducts);
-        response.sendRedirect("products.jsp");
+        
         
     }
 
@@ -68,7 +65,10 @@ public class ReceiveData extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
+        HttpSession session = request.getSession();
+        session.setAttribute("listProducts", listProducts);
+        response.sendRedirect("products.jsp");
     }
 
     /**

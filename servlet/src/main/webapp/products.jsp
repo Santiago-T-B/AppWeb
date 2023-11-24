@@ -24,13 +24,11 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <header>
+        <header class="header">
             <%@ include file="header.jsp" %>
         </header>
         <!-- Section of Products-->
-
         <section class="py-5">
-
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> 
 
@@ -47,7 +45,7 @@
                             <!-- Sale badge-->
                             <div class="badge text-white position-absolute" style="top: 0.5rem; right: 0.5rem; background-color: #0d6efd">ID: <%=product.getId()%></div>
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <img style="max-width: 400px; max-height: 250px;" src="<%=product.getUrl()%>" alt="..." onerror="this.src='https://dummyimage.com/700x700/696969/ffffff.png&text=Image+Not+Found'; this.onerror=null;" />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -78,6 +76,7 @@
                 </div>
             </div>
         </section>
+        <%@ include file="modals.jsp" %>
         <footer class="footer">
             <%@ include file="footer.jsp" %>
         </footer>

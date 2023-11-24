@@ -9,25 +9,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.Products;
 
 /**
  *
  * @author gotle
  */
-@WebServlet(name = "EditProduct", urlPatterns = {"/EditProduct"})
-public class EditProduct extends HttpServlet {
+@WebServlet(name = "EditProductA", urlPatterns = {"/EditProductA"})
+public class EditProductA extends HttpServlet {
 
-    private CrudDB crudDB = new CrudDB();
-
+    CrudDB crudDB = new CrudDB();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +37,7 @@ public class EditProduct extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -53,17 +49,7 @@ public class EditProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("idEditModal"));
-        String name = request.getParameter("nameEditModal");
-        String description = request.getParameter("descriptionEditModal");
-        int price = Integer.parseInt(request.getParameter("priceEditModal"));
-        String url = request.getParameter("urlEditModal");
-
-        crudDB.editProduct(id, name, description, price, url);
-        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
-        HttpSession session = request.getSession();
-        session.setAttribute("listProducts", listProducts);
-        response.sendRedirect("products.jsp");
+        processRequest(request, response);
     }
 
     /**
@@ -77,7 +63,18 @@ public class EditProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        int id = Integer.parseInt(request.getParameter("idEditA"));
+        String name = request.getParameter("nameEditA");
+        String description = request.getParameter("descriptionEditA");
+        int price = Integer.parseInt(request.getParameter("priceEditA"));
+        String url = request.getParameter("urlEditA");
+        crudDB.editProduct(id, name, description, price, url);
+        ArrayList<Products> listProducts = crudDB.receiveAllProducts();
+        HttpSession session = request.getSession();
+        session.setAttribute("listProducts", listProducts);
+        response.sendRedirect("products.jsp");
+        
     }
 
     /**
